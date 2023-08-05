@@ -1,3 +1,5 @@
+import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
 import { validateIp } from './helpers'
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -15,6 +17,17 @@ window.addEventListener("DOMContentLoaded", () => {
   } if (searchInput) {
     searchInput.addEventListener('keydown', (e) => handleKey(e))
   }
+
+  const mapArea = document.querySelector('.map')
+  const map = L.map(mapArea, {
+    center: [51.505, -0.09],
+    zoom: 13,
+  })
+
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+}).addTo(map);
 
   const getData = () => {
     if (validateIp(searchInput.value)) {
