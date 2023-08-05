@@ -8,8 +8,8 @@
   }
   
   .finder {
-    background: url(../images/pattern-bg.png);
-    background-size: cover;
+    background: rgb(11,147,163);
+    background: linear-gradient(90deg, rgba(11,147,163,0.6951155462184874) 0%, rgba(8,15,126,0.7343312324929971) 30%, rgba(10,47,108,0.742734593837535) 83%);
     padding: 2rem 1.5rem 17.5rem;
     text-align: center;
     position: relative;
