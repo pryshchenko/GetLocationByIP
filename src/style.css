@@ -23,7 +23,7 @@
   .title {
     color: white;
     margin-bottom: 1.5rem;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 3rem;
   }
   
@@ -107,7 +107,7 @@
     color: hsl(0, 0%, 59%);
     text-transform: uppercase;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-bottom: 1.5rem;
     letter-spacing: 0.3rem;
   }
@@ -117,7 +117,7 @@
     font-size: 2rem;
   }
   .map {
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 305px);
   }
   
   @media (min-width: 1024px) {

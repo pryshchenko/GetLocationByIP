@@ -1,6 +1,7 @@
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { validateIp } from './helpers'
+import { validateIp, addTileLayer, addOffset } from './helpers'
+import icon from '../images/icon-location.svg'
 
 window.addEventListener("DOMContentLoaded", () => {
   
@@ -9,7 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
   
   const ipInfo = document.querySelector('#ip')
   const locationInfo = document.querySelector('#location')
-  const timezoneInfo = document.querySelector('#timezone')
+  const proxy = document.querySelector('#proxy')
   const ispInfo = document.querySelector('#isp')
 
   if (btn) {
@@ -18,16 +19,18 @@ window.addEventListener("DOMContentLoaded", () => {
     searchInput.addEventListener('keydown', (e) => handleKey(e))
   }
 
+  const markerIcon = L.icon({
+    iconUrl: icon,
+    iconSize: [30, 40],
+  })
+
   const mapArea = document.querySelector('.map')
   const map = L.map(mapArea, {
-    center: [51.505, -0.09],
+    center: [50.45466, 30.5238],
     zoom: 13,
   })
 
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
-}).addTo(map);
+  addTileLayer(map)
 
   const getData = () => {
     if (validateIp(searchInput.value)) {
@@ -44,11 +47,18 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   const setInfo = data => {
+    console.log(data)
+    const { country, region, city, lat, lng } = data.location
     ipInfo.innerText = data.ip
-    locationInfo.innerText = `${data.location.country} ${data.location.region} ${data.location.city}`
-    timezoneInfo.innerText = data.location.timezone
+    locationInfo.innerText = `${country} ${region} ${city}`
     ispInfo.innerText = data.isp
+    proxy.innerText = (data.proxy.proxy || data.proxy.tor || data.proxy.vpn) ? 'Есть' : 'Нету'
+    map.setView([lat, lng])
+    L.marker([lat, lng], {icon: markerIcon}).addTo(map)
+    
+    if (matchMedia("(max-width: 1023px)").matches) {
+      addOffset(map)
+    }
   }
-
 });
 
