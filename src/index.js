@@ -1,9 +1,12 @@
 import 'leaflet/dist/leaflet.css'
+import 'dotenv/config'
 import L from 'leaflet'
 import { validateIp, addTileLayer, addOffset } from './helpers'
 import icon from '../images/icon-location.svg'
 
+
 window.addEventListener("DOMContentLoaded", () => {
+  const api = process.env.API_KEY
   
   const btn = document.querySelector('.search-bar__btn')
   const searchInput = document.querySelector('.search-bar__input')
@@ -34,7 +37,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const getData = () => {
     if (validateIp(searchInput.value)) {
-      fetch(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=at_tYZqqhiMxrew2hEX8fUEhp79mwUlG&ipAddress=${searchInput.value}`)
+      console.log(api)
+      fetch(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=${api}=${searchInput.value}`)
         .then(repsonse => repsonse.json())
         .then(setInfo)
     }
