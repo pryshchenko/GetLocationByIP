@@ -7,7 +7,7 @@ import icon from '../images/icon-location.svg'
 
 window.addEventListener("DOMContentLoaded", () => {
   const api = process.env.API_KEY
-  
+
   const btn = document.querySelector('.search-bar__btn')
   const searchInput = document.querySelector('.search-bar__input')
   
@@ -15,6 +15,11 @@ window.addEventListener("DOMContentLoaded", () => {
   const locationInfo = document.querySelector('#location')
   const proxy = document.querySelector('#proxy')
   const ispInfo = document.querySelector('#isp')
+  const yourIP = document.querySelector('#yourIP')
+
+  fetch('https://api.ipify.org?format=json')
+  .then(response => response.json())
+  .then(data => getUserIp(data))
 
   if (btn) {
     btn.addEventListener('click', () => getData())
@@ -37,7 +42,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const getData = () => {
     if (validateIp(searchInput.value)) {
-      console.log(api)
       fetch(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=${api}=${searchInput.value}`)
         .then(repsonse => repsonse.json())
         .then(setInfo)
@@ -51,7 +55,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   const setInfo = data => {
-    console.log(data)
     const { country, region, city, lat, lng } = data.location
     ipInfo.innerText = data.ip
     locationInfo.innerText = `${country} ${region} ${city}`
@@ -64,5 +67,16 @@ window.addEventListener("DOMContentLoaded", () => {
       addOffset(map)
     }
   }
+
+  const getUserIp = data => {
+    yourIP.innerHTML = `Ваш IP: <b>${data.ip}</b>`
+  }
+
+  yourIP.addEventListener('click', () => {
+      fetch(`https://geo.ipify.org/api/v2/country,city,vpn?apiKey=${api}=${yourIP.innerText.slice(8)}`)
+        .then(repsonse => repsonse.json())
+        .then(setInfo)
+  })
+
 });
 

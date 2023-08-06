@@ -13,6 +13,7 @@
     padding: 2rem 1.5rem 17.5rem;
     text-align: center;
     position: relative;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
   }
   @media (min-width: 1024px) {
     .finder {
@@ -117,7 +118,7 @@
     font-size: 2rem;
   }
   .map {
-    min-height: calc(100vh - 305px);
+    min-height: calc(100vh - 335px);
   }
   
   @media (min-width: 1024px) {
@@ -143,4 +144,11 @@
       font-size: 2.4rem;
     }
   }
-  
+  #yourIP {
+    display: block;
+    color: white;
+    font-size: 16px;
+  }
+  #yourIP b{
+    cursor: pointer;
+  }
